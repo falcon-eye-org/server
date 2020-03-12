@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: Server SDK
+  version: '1.0'
+  description: Falcon Eye Server SDK API Documentation
+  contact:
+    name: ImOverlord
+    email: ImOverlord@hotmail.com
+servers:
+  - url: 'http://localhost:3000'
+    description: Local
+paths:
+  /event:
+    post:
+      summary: ''
+      operationId: post-event
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      description: Endpoint to send Events to the server
+components:
+  schemas:
+    Event:
+      title: Event
+      type: object
+      properties:
+        client:
+          type: string
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              idDevice:
+                type: string
+              timestamp:
+                type: string
+              userAgent:
+                type: string
+            required:
+              - idDevice
+              - timestamp
+              - userAgent
+        timestamp:
+          type: string
+      required:
+        - client
+        - events
+        - timestamp
+  securitySchemes: {}

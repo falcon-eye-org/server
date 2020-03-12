@@ -1,0 +1,7 @@
+api-doc/
+docs/
+coverage/
+.eslintrc.js
+.travis.yml
+jest.config.js
+dist/

@@ -1,0 +1,50 @@
+{
+  "name": "typescript-project-template",
+  "version": "0.1.0",
+  "description": "Template for TypeScript Project, with travis, and eslint",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node .",
+    "start:dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "test:lint": "eslint ./src --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImOverlord/typescript-project-template.git"
+  },
+  "keywords": [
+    "Template",
+    "TypeScript",
+    "EsLint",
+    "Travis"
+  ],
+  "author": "ImOverlord",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ImOverlord/typescript-project-template/issues"
+  },
+  "homepage": "https://github.com/ImOverlord/typescript-project-template#readme",
+  "devDependencies": {
+    "@types/bull": "^3.12.1",
+    "@types/jest": "^25.1.4",
+    "@types/throng": "^4.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "docsify": "^4.10.2",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/ua-parser-js": "^0.7.33",
+    "bull": "^3.13.0",
+    "mongodb": "^3.5.5",
+    "throng": "^4.0.0",
+    "ua-parser-js": "^0.7.21"
+  }
+}

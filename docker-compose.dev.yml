@@ -1,0 +1,71 @@
+version: '3'
+
+volumes:
+    mongodb_data_container:
+
+services:
+
+    server:
+        build:
+            context: packages/server-sdk/
+            dockerfile: Dockerfile
+        ports:
+            - 3000:3000
+        links:
+            - redis
+        depends_on:
+            - redis
+            - worker
+
+    worker:
+        build: 
+            context: packages/worker/
+            dockerfile: Dockerfile
+        command: npm run start:dev
+        volumes:
+            - ./packages/worker/src:/app/src
+            - /app/node_modules # Remove this if you have pure JS dependencies
+        links:
+            - redis
+        depends_on:
+            - redis
+
+    redis: 
+        image: redis:latest
+        ports:
+            - 6379
+
+    mongodb:
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+        volumes:
+            - mongodb_data_container:/data/db
+
+
+    mongoku:
+        image: huggingface/mongoku
+        restart: always
+        environment:
+            MONGOKU_DEFAULT_HOST: mongodb://root:rootpassword@mongodb:27017;localhost:27017
+        ports:
+            - 3100:3100
+        depends_on:
+            - mongodb
+        links:
+            - mongodb
+
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOSTS=local:redis:6379
+        ports:
+            - "8081:8081"
+        links:
+            - redis
+        depends_on:
+            - redis
